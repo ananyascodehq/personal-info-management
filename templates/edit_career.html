@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Career Info</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Edit Career Info</h2>
+    <form method="POST">
+      <label for="person">Person:</label>
+      <select name="person_id" id="person" required>
+        {% for person in persons %}
+          <option value="{{ person.person_id }}" {% if person.person_id == career.person_id %}selected{% endif %}>
+            {{ person.name }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label for="job_title">Job Title:</label>
+      <input type="text" name="job_title" id="job_title" value="{{ career.job_title }}" required>
+
+      <label for="company">Company:</label>
+      <input type="text" name="company" id="company" value="{{ career.company }}">
+
+      <label for="years_experience">Years of Experience:</label>
+      <input type="number" name="years_experience" id="years_experience" value="{{ career.years_experience }}">
+
+      <label for="skills">Skills:</label>
+      <textarea name="skills" id="skills" rows="4">{{ career.skills }}</textarea>
+
+      <button type="submit">Update Career</button>
+    </form>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Details</title>
+    <!-- ✅ This links to your CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="table-container">
+    <h2>Career Information</h2>
+    <a href="/career/add" class="add-btn">➕ Add Career</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Career ID</th>
+                <th>Person ID</th>
+                <th>Name</th>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Experience</th>
+                <th>Skills</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.career_id }}</td>
+                <td>{{ row.person_id }}</td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.job_title }}</td>
+                <td>{{ row.company }}</td>
+                <td>{{ row.years_experience }}</td>
+                <td>{{ row.skills }}</td>
+                <td>
+                    <a href="/career/edit/{{ row.career_id }}" class="edit-btn">✏ Edit</a>
+                    <a href="/career/delete/{{ row.career_id }}" class="delete-btn" onclick="return confirm('Delete this record?')">🗑 Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Career Information</h2>
+<form method="POST">
+  <div class="mb-2">
+    <label>Person</label>
+    <select name="person_id" class="form-select" required>
+      {% for person in persons %}
+      <option value="{{ person.person_id }}">{{ person.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <label>Job Title</label>
+    <input class="form-control" name="job_title" required />
+  </div>
+
+  <div class="mb-2">
+    <label>Company</label>
+    <input class="form-control" name="company" required />
+  </div>
+
+  <div class="mb-2">
+    <label>Years of Experience</label>
+    <input type="number" class="form-control" name="years_experience" required min="0">
+  </div>
+
+  <div class="mb-2">
+    <label>Skills</label>
+    <input class="form-control" name="skills" placeholder="e.g., Python, SQL, Flask" required />
+  </div>
+
+  <button class="btn btn-success">Add Career</button>
+</form>
+{% endblock %}

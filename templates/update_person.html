@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Update Person Info</h2>
+<form method="POST">
+    <p><b>Name:</b> {{ person[1] }}</p>
+
+    <!-- 🎂 DOB (Display Only, Optional) -->
+    {% if person[2] %}
+    <p><b>Date of Birth:</b> {{ person[2] }}</p>
+    {% endif %}
+
+    <!-- 🚻 Gender Dropdown -->
+    <div class="mb-2">
+        <label for="gender"><b>Gender</b></label>
+        <select class="form-select" name="gender" id="gender" required>
+            <option value="Male" {% if person[3] == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if person[3] == 'Female' %}selected{% endif %}>Female</option>
+            <option value="Other" {% if person[3] == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="mb-2">
+        <input class="form-control" name="phone" value="{{ person[4] }}" placeholder="Phone">
+    </div>
+    <div class="mb-2">
+        <input class="form-control" name="email" value="{{ person[5] }}" placeholder="Email">
+    </div>
+    <div class="mb-2">
+        <textarea class="form-control" name="address">{{ person[6] }}</textarea>
+    </div>
+    <button class="btn btn-info">Update</button>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Education</h2>
+<form method="POST">
+<div class="mb-2">
+<label><b>Person</b></label>
+<select name="person_id" class="form-select" required>
+{% for person in persons %}
+<option value="{{ person.person_id }}">{{ person.name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="mb-2">
+<input class="form-control" name="degree" placeholder="Degree" required />
+</div>
+<div class="mb-2">
+<input class="form-control" name="institution" placeholder="Institution" required />
+</div>
+<div class="mb-2">
+<input type="number" class="form-control" name="year_of_passing" placeholder="Year of Passing" required min="1900" max="{{ max_year }}">
+</div>
+
+<button class="btn btn-success">Add Education</button>
+</form>
+{% endblock %}

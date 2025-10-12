@@ -8,7 +8,7 @@ def get_server_connection():
         return mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="Bhuva_sri@6980"
+            passwd="1234"
         )
     except Error as e:
         print(f"❌ Cannot connect to MySQL server: {e}")
@@ -19,7 +19,7 @@ def get_connection():
         conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="Bhuva_sri@6980",
+            passwd="1234",
             database=DB_NAME
         )
         return conn if conn.is_connected() else None

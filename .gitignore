@@ -1,0 +1,57 @@
+# -------------------------
+# Python bytecode
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -------------------------
+# Virtual environment
+# -------------------------
+venv/
+.venv/
+env/
+
+# -------------------------
+# Environment variables / secrets
+# -------------------------
+.env
+.env.*
+
+# -------------------------
+# Database files (if using SQLite or local DB)
+# -------------------------
+*.db
+*.sqlite3
+
+# -------------------------
+# Logs & runtime files
+# -------------------------
+*.log
+logs/
+tmp/
+
+# -------------------------
+# Editor / IDE
+# -------------------------
+.vscode/
+.idea/
+*.swp
+
+# -------------------------
+# OS junk
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Python tooling
+# -------------------------
+.pytest_cache/
+.mypy_cache/
+.cache/
+
+# -------------------------
+# Flask specific
+# -------------------------
+instance/

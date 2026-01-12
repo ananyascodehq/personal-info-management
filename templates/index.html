@@ -54,15 +54,22 @@
     <tbody>
       {% for row in persons %}
       <tr>
-        <!-- 👤 Name (clickable) -->
-        <td class="fw-semibold">{{ row[1] }}</td>
+        <!-- 👤 Name (plain text) -->
+        <td class="fw-semibold text-dark">{{ row[1] }}</td>
 
         <td>{{ row[2] or '-' }}</td>
         <td>{{ row[3] }}</td>
         <td>{{ row[4] }}</td>
         <td>{{ row[5] }}</td>
 
+        <!-- 🔘 Actions -->
         <td>
+          <a
+            href="{{ url_for('person_detail', id=row[0]) }}"
+            class="btn btn-sm btn-outline-primary me-1"
+          >
+            View Profile
+          </a>
           <a
             href="{{ url_for('update_person', id=row[0]) }}"
             class="btn btn-sm edit-btn me-1"

@@ -193,11 +193,16 @@ table tbody tr:hover {
 .delete-btn {
   background-color: #ef4444;
   color: #ffffff;
+  opacity: 0.85;
 }
 
 .delete-btn:hover {
   background-color: #dc2626;
+  opacity: 1;
+
 }
+
+
 
 /* =========================
    EMPTY STATES
@@ -257,4 +262,11 @@ form textarea:focus {
 
 .text-muted {
   color: #6b7280 !important;
+}
+
+.table-wrapper tbody tr:hover {
+  background-color: #f9fafb;
+}
+.table-wrapper tbody tr:last-child td {
+  border-bottom: none;
 }

@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <!-- 📄 Page Header -->
 <div class="mb-4">
@@ -18,9 +17,7 @@
     value="{{ search_query }}"
   />
   {% if search_query %}
-    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
-      Clear
-    </a>
+  <a href="{{ url_for('index') }}" class="btn btn-outline-secondary"> Clear </a>
   {% endif %}
 </form>
 
@@ -50,7 +47,6 @@
         <th>Gender</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Address</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -59,23 +55,13 @@
       {% for row in persons %}
       <tr>
         <!-- 👤 Name (clickable) -->
-        <td>
-          <a
-            href="{{ url_for('person_detail', id=row[0]) }}"
-            class="fw-semibold text-decoration-none"
-          >
-            {{ row[1] }}
-          </a>
-        </td>
+        <td class="fw-semibold">{{ row[1] }}</td>
 
-        <!-- Other fields -->
         <td>{{ row[2] or '-' }}</td>
         <td>{{ row[3] }}</td>
         <td>{{ row[4] }}</td>
         <td>{{ row[5] }}</td>
-        <td>{{ row[6] or '-' }}</td>
 
-        <!-- Actions -->
         <td>
           <a
             href="{{ url_for('update_person', id=row[0]) }}"
@@ -97,5 +83,4 @@
   </table>
 </div>
 
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

@@ -1,16 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="table-container">
-  <h2>Career Records</h2>
-  <a href="{{ url_for('add_career') }}" class="add-btn">Add New Career</a>
+
+<!-- 📄 Page Header -->
+<div class="mb-4 d-flex justify-content-between align-items-start">
+  <div>
+    <h1 class="page-title">Career Records</h1>
+    <p class="page-subtitle">
+      View and manage professional experience linked to people profiles.
+    </p>
+  </div>
+
+  <a href="{{ url_for('add_career') }}" class="btn btn-primary">
+    + Add Career
+  </a>
+</div>
+
+{% if data|length == 0 %}
+
+<!-- 🌱 Empty State -->
+<div class="empty-state">
+  <h5>No career records found</h5>
+  <p>
+    Add career information to track job roles, experience, and skills for each person.
+  </p>
+  <a href="{{ url_for('add_career') }}" class="btn btn-primary">
+    Add first career record
+  </a>
+</div>
+
+{% else %}
+
+<!-- 📋 Career Table -->
+<div class="table-wrapper">
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Person Name</th>
+        <th>Person</th>
         <th>Job Title</th>
         <th>Company</th>
-        <th>Experience</th>
+        <th>Experience (Years)</th>
         <th>Skills</th>
         <th>Actions</th>
       </tr>
@@ -18,19 +46,31 @@
     <tbody>
       {% for row in data %}
       <tr>
-        <td>{{ row.career_id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.job_title }}</td>
         <td>{{ row.company }}</td>
         <td>{{ row.years_experience }}</td>
         <td>{{ row.skills }}</td>
         <td>
-          <a href="{{ url_for('edit_career', id=row.career_id) }}" class="edit-btn">Edit</a>
-          <a href="{{ url_for('delete_career', id=row.career_id) }}" class="delete-btn" onclick="return confirm('Delete this record?')">Delete</a>
+          <a
+            href="{{ url_for('edit_career', id=row.career_id) }}"
+            class="btn btn-sm edit-btn me-1"
+          >
+            Edit
+          </a>
+          <a
+            href="{{ url_for('delete_career', id=row.career_id) }}"
+            class="btn btn-sm delete-btn"
+            onclick="return confirm('Delete this career record?');"
+          >
+            Delete
+          </a>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+
+{% endif %}
 {% endblock %}

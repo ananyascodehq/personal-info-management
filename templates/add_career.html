@@ -1,36 +1,94 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Add Career Information</h2>
-<form method="POST">
-  <div class="mb-2">
-    <label>Person</label>
-    <select name="person_id" class="form-select" required>
-      {% for person in persons %}
-      <option value="{{ person.person_id }}">{{ person.name }}</option>
-      {% endfor %}
-    </select>
-  </div>
 
-  <div class="mb-2">
-    <label>Job Title</label>
-    <input class="form-control" name="job_title" required />
-  </div>
+<!-- 📄 Page Header -->
+<div class="mb-4">
+  <h1 class="page-title">Add Career</h1>
+  <p class="page-subtitle">
+    Add professional experience and skills associated with a person profile.
+  </p>
+</div>
 
-  <div class="mb-2">
-    <label>Company</label>
-    <input class="form-control" name="company" required />
-  </div>
+<!-- 🧾 Form Panel -->
+<div class="panel">
+  <form method="POST" novalidate>
 
-  <div class="mb-2">
-    <label>Years of Experience</label>
-    <input type="number" class="form-control" name="years_experience" required min="0">
-  </div>
+    <!-- 👤 Person -->
+    <div class="mb-3">
+      <label class="form-label">Person</label>
+      <select name="person_id" class="form-select" required>
+        <option value="" disabled selected>Select a person</option>
+        {% for person in persons %}
+          <option value="{{ person.person_id }}">
+            {{ person.name }}
+          </option>
+        {% endfor %}
+      </select>
+      <div class="form-text">
+        Choose the person this career record belongs to.
+      </div>
+    </div>
 
-  <div class="mb-2">
-    <label>Skills</label>
-    <input class="form-control" name="skills" placeholder="e.g., Python, SQL, Flask" required />
-  </div>
+    <!-- 💼 Job Title -->
+    <div class="mb-3">
+      <label class="form-label">Job Title</label>
+      <input
+        type="text"
+        name="job_title"
+        class="form-control"
+        placeholder="e.g. Software Engineer"
+        required
+      />
+    </div>
 
-  <button class="btn btn-success">Add Career</button>
-</form>
+    <!-- 🏢 Company -->
+    <div class="mb-3">
+      <label class="form-label">Company</label>
+      <input
+        type="text"
+        name="company"
+        class="form-control"
+        placeholder="e.g. Google"
+        required
+      />
+    </div>
+
+    <!-- 📊 Experience -->
+    <div class="mb-3">
+      <label class="form-label">Years of Experience</label>
+      <input
+        type="number"
+        name="years_experience"
+        class="form-control"
+        min="0"
+        placeholder="e.g. 3"
+        required
+      />
+    </div>
+
+    <!-- 🧠 Skills -->
+    <div class="mb-4">
+      <label class="form-label">Skills</label>
+      <input
+        type="text"
+        name="skills"
+        class="form-control"
+        placeholder="e.g. Python, SQL, Flask"
+        required
+      />
+    </div>
+
+    <!-- 🔘 Actions -->
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">
+        Add Career
+      </button>
+      <a href="{{ url_for('view_career') }}" class="btn btn-outline-secondary">
+        Cancel
+      </a>
+    </div>
+
+  </form>
+</div>
+
 {% endblock %}

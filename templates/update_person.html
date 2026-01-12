@@ -1,33 +1,100 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Update Person Info</h2>
-<form method="POST">
-    <p><b>Name:</b> {{ person[1] }}</p>
 
-    <!-- 🎂 DOB (Display Only, Optional) -->
+<!-- 📄 Page Header -->
+<div class="mb-4">
+  <h1 class="page-title">Edit Person</h1>
+  <p class="page-subtitle">
+    Update contact and demographic information for this profile.
+  </p>
+</div>
+
+<!-- 🧾 Form Panel -->
+<div class="panel">
+  <form method="POST" novalidate>
+
+    <!-- 👤 Name (Read-only) -->
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{ person[1] }}"
+        disabled
+      />
+      <div class="form-text">
+        Name cannot be edited once the profile is created.
+      </div>
+    </div>
+
+    <!-- 🎂 DOB (Read-only, if present) -->
     {% if person[2] %}
-    <p><b>Date of Birth:</b> {{ person[2] }}</p>
+    <div class="mb-3">
+      <label class="form-label">Date of Birth</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{ person[2] }}"
+        disabled
+      />
+    </div>
     {% endif %}
 
-    <!-- 🚻 Gender Dropdown -->
-    <div class="mb-2">
-        <label for="gender"><b>Gender</b></label>
-        <select class="form-select" name="gender" id="gender" required>
-            <option value="Male" {% if person[3] == 'Male' %}selected{% endif %}>Male</option>
-            <option value="Female" {% if person[3] == 'Female' %}selected{% endif %}>Female</option>
-            <option value="Other" {% if person[3] == 'Other' %}selected{% endif %}>Other</option>
-        </select>
+    <!-- 🚻 Gender -->
+    <div class="mb-3">
+      <label class="form-label">Gender</label>
+      <select name="gender" class="form-select" required>
+        <option value="Male" {% if person[3] == 'Male' %}selected{% endif %}>Male</option>
+        <option value="Female" {% if person[3] == 'Female' %}selected{% endif %}>Female</option>
+        <option value="Other" {% if person[3] == 'Other' %}selected{% endif %}>Other</option>
+      </select>
     </div>
 
-    <div class="mb-2">
-        <input class="form-control" name="phone" value="{{ person[4] }}" placeholder="Phone">
+    <!-- 📞 Phone -->
+    <div class="mb-3">
+      <label class="form-label">Phone</label>
+      <input
+        type="tel"
+        name="phone"
+        class="form-control"
+        value="{{ person[4] }}"
+        required
+      />
     </div>
-    <div class="mb-2">
-        <input class="form-control" name="email" value="{{ person[5] }}" placeholder="Email">
+
+    <!-- ✉️ Email -->
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        value="{{ person[5] }}"
+        required
+      />
     </div>
-    <div class="mb-2">
-        <textarea class="form-control" name="address">{{ person[6] }}</textarea>
+
+    <!-- 🏠 Address -->
+    <div class="mb-4">
+      <label class="form-label">Address</label>
+      <textarea
+        name="address"
+        class="form-control"
+        rows="3"
+      >{{ person[6] }}</textarea>
     </div>
-    <button class="btn btn-info">Update</button>
-</form>
+
+    <!-- 🔘 Actions -->
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">
+        Save Changes
+      </button>
+      <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+        Cancel
+      </a>
+    </div>
+
+  </form>
+</div>
+
 {% endblock %}

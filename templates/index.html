@@ -99,14 +99,14 @@
         {% for row in persons %}
         <tr
           class="clickable-row"
-          data-href="{{ url_for('person_detail', id=row[0]) }}"
+          data-href="{{ url_for('person_detail', id=row.person_id) }}"
           onclick="window.location=this.dataset.href"
         >
-          <td class="fw-semibold">{{ row[1] }}</td>
-          <td>{{ row[2] or '-' }}</td>
-          <td>{{ row[3] }}</td>
-          <td>{{ row[4] }}</td>
-          <td>{{ row[5] }}</td>
+          <td class="fw-semibold">{{ row.name }}</td>
+          <td>{{ row.dob or '-' }}</td>
+          <td>{{ row.gender }}</td>
+          <td>{{ row.phone }}</td>
+          <td>{{ row.email }}</td>
 
           <!-- ⋮ ACTIONS -->
           <td onclick="event.stopPropagation()">
@@ -122,20 +122,22 @@
                 <li>
                   <a
                     class="dropdown-item"
-                    href="{{ url_for('update_person', id=row[0]) }}"
+                    href="{{ url_for('update_person', id=row.person_id) }}"
                   >
                     Edit
                   </a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a
-                    class="dropdown-item text-danger"
-                    href="{{ url_for('delete_person', id=row[0]) }}"
-                    onclick="return confirm('Delete this person?')"
+                  <form
+                    action="{{ url_for('delete_person', id=row.person_id) }}"
+                    method="POST"
+                    onsubmit="return confirm('Delete this person? This action cannot be undone.');"
                   >
-                    Delete
-                  </a>
+                    <button type="submit" class="dropdown-item text-danger">
+                      Delete
+                    </button>
+                  </form>
                 </li>
               </ul>
             </div>

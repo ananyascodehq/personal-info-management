@@ -19,7 +19,7 @@
       <input
         type="text"
         class="form-control"
-        value="{{ person[1] }}"
+        value="{{ person.name }}"
         disabled
       />
       <div class="form-text">
@@ -28,13 +28,13 @@
     </div>
 
     <!-- 🎂 DOB (Read-only, if present) -->
-    {% if person[2] %}
+    {% if person.dob %}
     <div class="mb-3">
       <label class="form-label">Date of Birth</label>
       <input
         type="text"
         class="form-control"
-        value="{{ person[2] }}"
+        value="{{ person.dob }}"
         disabled
       />
     </div>
@@ -44,9 +44,9 @@
     <div class="mb-3">
       <label class="form-label">Gender</label>
       <select name="gender" class="form-select" required>
-        <option value="Male" {% if person[3] == 'Male' %}selected{% endif %}>Male</option>
-        <option value="Female" {% if person[3] == 'Female' %}selected{% endif %}>Female</option>
-        <option value="Other" {% if person[3] == 'Other' %}selected{% endif %}>Other</option>
+        <option value="Male" {% if person.gender == 'Male' %}selected{% endif %}>Male</option>
+        <option value="Female" {% if person.gender == 'Female' %}selected{% endif %}>Female</option>
+        <option value="Other" {% if person.gender == 'Other' %}selected{% endif %}>Other</option>
       </select>
     </div>
 
@@ -57,7 +57,7 @@
         type="tel"
         name="phone"
         class="form-control"
-        value="{{ person[4] }}"
+        value="{{ person.phone }}"
         required
       />
     </div>
@@ -69,7 +69,7 @@
         type="email"
         name="email"
         class="form-control"
-        value="{{ person[5] }}"
+        value="{{ person.email }}"
         required
       />
     </div>
@@ -81,7 +81,7 @@
         name="address"
         class="form-control"
         rows="3"
-      >{{ person[6] }}</textarea>
+      >{{ person.address or '' }}</textarea>
     </div>
 
     <!-- 🔘 Actions -->

@@ -1,26 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Add Education</h2>
-<form method="POST">
-<div class="mb-2">
-<label><b>Person</b></label>
-<select name="person_id" class="form-select" required>
-{% for person in persons %}
-<option value="{{ person.person_id }}">{{ person.name }}</option>
-{% endfor %}
-</select>
+
+<!-- 📄 Page Header -->
+<div class="mb-4">
+  <h1 class="page-title">Add Education</h1>
+  <p class="page-subtitle">
+    Add an education record for <strong>{{ person.name }}</strong>.
+  </p>
 </div>
 
-<div class="mb-2">
-<input class="form-control" name="degree" placeholder="Degree" required />
-</div>
-<div class="mb-2">
-<input class="form-control" name="institution" placeholder="Institution" required />
-</div>
-<div class="mb-2">
-<input type="number" class="form-control" name="year_of_passing" placeholder="Year of Passing" required min="1900" max="{{ max_year }}">
+<!-- 🧾 Form Panel -->
+<div class="panel">
+  <form method="POST" novalidate>
+
+    <!-- 🎓 Degree -->
+    <div class="mb-3">
+      <label class="form-label">Degree</label>
+      <input
+        type="text"
+        name="degree"
+        class="form-control"
+        placeholder="e.g. B.Tech in Computer Science"
+        required
+      />
+    </div>
+
+    <!-- 🏫 Institution -->
+    <div class="mb-3">
+      <label class="form-label">Institution</label>
+      <input
+        type="text"
+        name="institution"
+        class="form-control"
+        placeholder="e.g. IIT Bombay"
+        required
+      />
+    </div>
+
+    <!-- 📅 Year -->
+    <div class="mb-4">
+      <label class="form-label">Year of Passing</label>
+      <input
+        type="number"
+        name="year_of_passing"
+        class="form-control"
+        min="1900"
+        max="{{ max_year }}"
+        placeholder="e.g. 2024"
+        required
+      />
+    </div>
+
+    <!-- 🔘 Actions -->
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">
+        Save Education
+      </button>
+      <a
+        href="{{ url_for('person_detail', id=person.person_id) }}"
+        class="btn btn-outline-secondary"
+      >
+        Cancel
+      </a>
+    </div>
+
+  </form>
 </div>
 
-<button class="btn btn-success">Add Education</button>
-</form>
 {% endblock %}

@@ -227,32 +227,49 @@ def view_career():
     return render_template('view_career.html', data=data)
 
 
-@app.route('/career/add', methods=['GET', 'POST'])
-def add_career():
+@app.route('/career/add/<int:person_id>', methods=['GET', 'POST'])
+def add_career(person_id):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT person_id, name FROM Persons")
-    persons = cursor.fetchall()
+    # Fetch person (for display / validation)
+    cursor.execute(
+        "SELECT person_id, name FROM Persons WHERE person_id = %s",
+        (person_id,)
+    )
+    person = cursor.fetchone()
+
+    if not person:
+        flash("Person not found", "danger")
+        return redirect(url_for('index'))
 
     if request.method == 'POST':
         cursor.execute("""
             INSERT INTO Career (person_id, job_title, company, years_experience, skills)
             VALUES (%s, %s, %s, %s, %s)
         """, (
-            request.form['person_id'],
+            person_id,
             request.form['job_title'],
             request.form['company'],
             request.form['years_experience'],
             request.form['skills']
         ))
+
         conn.commit()
-        flash("✅ Career added successfully", "success")
-        return redirect(url_for('view_career'))
+        cursor.close()
+        conn.close()
+
+        flash("✅ Career added successfully!", "success")
+        return redirect(url_for('person_detail', id=person_id))
 
     cursor.close()
     conn.close()
-    return render_template('add_career.html', persons=persons)
+
+    return render_template(
+        'add_career.html',
+        person=person
+    )
+
 
 
 @app.route('/career/edit/<int:id>', methods=['GET', 'POST'])
@@ -328,7 +345,7 @@ def view_education():
     return render_template('view_education.html', data=data)
 
 
-@app.route('/education/add', methods=['GET', 'POST'])
+@app.route('/education/add/<int:person_id>', methods=['GET', 'POST'])
 def add_education():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)

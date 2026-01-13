@@ -5,29 +5,13 @@
 <div class="mb-4">
   <h1 class="page-title">Add Career</h1>
   <p class="page-subtitle">
-    Add professional experience and skills associated with a person profile.
+    Add professional experience for <strong>{{ person.name }}</strong>.
   </p>
 </div>
 
 <!-- 🧾 Form Panel -->
 <div class="panel">
   <form method="POST" novalidate>
-
-    <!-- 👤 Person -->
-    <div class="mb-3">
-      <label class="form-label">Person</label>
-      <select name="person_id" class="form-select" required>
-        <option value="" disabled selected>Select a person</option>
-        {% for person in persons %}
-          <option value="{{ person.person_id }}">
-            {{ person.name }}
-          </option>
-        {% endfor %}
-      </select>
-      <div class="form-text">
-        Choose the person this career record belongs to.
-      </div>
-    </div>
 
     <!-- 💼 Job Title -->
     <div class="mb-3">
@@ -81,9 +65,12 @@
     <!-- 🔘 Actions -->
     <div class="d-flex gap-2">
       <button type="submit" class="btn btn-primary">
-        Add Career
+        Save Career
       </button>
-      <a href="{{ url_for('view_career') }}" class="btn btn-outline-secondary">
+      <a
+        href="{{ url_for('person_detail', id=person.person_id) }}"
+        class="btn btn-outline-secondary"
+      >
         Cancel
       </a>
     </div>
